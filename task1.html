@@ -18,18 +18,22 @@
 
         function handleChange(event){
             setcolor(event.target.value)
+
         }
-       return(
-        <div>
-            <input type="text" value={color} onChange={handleChange} placeholder="Enter your HEX color"/>
-       
-        <div style={{
+        let styles={
             width: '200px',
               height: '200px',
-              backgroundColor: color,
+              backgroundColor:color,
               marginTop: '10px',
-        }}>
-        </div>
+        }
+       return(
+        
+        <div>
+            <input type="text" value={color} onChange={handleChange} placeholder="Enter your HEX color"/>
+           {color.length==4 || color.length==7 ? <div style={styles}>
+        </div>: color.length === 0 ? <p></p> : <p>Invaild input</p>}
+        
+
     </div>
        ) 
     }
