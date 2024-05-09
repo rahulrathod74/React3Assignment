@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    function App(){
+        
+    const [formValues, setFormValues] =React. useState([""])
+    let handleChange = (i, e) => {
+        let newFormValues = [...formValues];
+        newFormValues[i][e.target.name] = e.target.value;
+        setFormValues(newFormValues);
+      }
+    
+    let addFormFields = () => {
+        setFormValues([...formValues, ''])
+      }
+    
+    let removeFormFields = (i) => {
+        let newFormValues = [...formValues];
+        newFormValues.splice(i, 1);
+        setFormValues(newFormValues)
+    }
+    
+    let handleSubmit = (event) => {
+        event.preventDefault();
+        alert(JSON.stringify(formValues));
+    }
+
+    return (
+        <form  onSubmit={handleSubmit}>
+          {formValues.map((element, index) => (
+            <div className="form-inline" key={index}>
+              <label>Name</label>
+              <input type="text" name="name" value={element} onChange={e => handleChange(index, e)} />
+            
+              {
+                index ? 
+                  <button type="button"  className="button remove" onClick={() => removeFormFields(index)}>Remove</button> 
+                : null
+              }
+            </div>
+          ))}
+          <div className="button-section">
+              <button className="button add" type="button" onClick={() => addFormFields()}>Add</button>
+              <button className="button submit" type="submit">Submit</button>
+          </div>
+      </form>
+    )
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
+  </script>
+</html>
